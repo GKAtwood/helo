@@ -8,6 +8,12 @@ app = express();
 
 app.use(express.json());
 
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
+  }))
+
 massive({
     connectionString: CONNECTION_STRING,
     ssl: {rejectUnauthorized: false}
@@ -15,6 +21,9 @@ massive({
     app.set('db',db);
     console.log('db connected')
 });
+
+///auth endpoints///
+app.post('/api/new-user', ctrl.createUser)
 
 
 
