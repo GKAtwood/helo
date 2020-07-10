@@ -1,16 +1,22 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Nav from './Components/Nav/Nav';
-import routes from './routes';
+import Routes from './routes'
 
 
-function App() {
-  return (
-    <div className="App">
-      <Nav/>
-      {routes}
-    </div>
-  );
+class App extends Component {
+ 
+  render() {
+// const nav = this.props.location.pathname === '/' ? "" : 
+    return (
+      <div className="App">
+        <Nav/>
+    
+        <Routes/>
+    
+      </div>
+    );
+  }
 }
 
 export default App;
