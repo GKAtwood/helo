@@ -21,13 +21,36 @@ module.exports={
         req.session.user = newUser[0];
         res.status(201).send(req.session.user);
     },
+
+    loginUser: async(req, res) => {
+        //What does this function need to run properly?
+        const {email, password} = req.body,
+              db = req.app.get('db');
+
+        //Checks if user is already in the database, based on email
+        const foundUser = await db.users.check_user({email});
+        if(!foundUser[0]){
+            return res.status(400).send('Email not found');
+        }
+
+        //Compare the passwords to make they match
+        const authenticated = bcrypt.compareSync(password, foundUser[0].password);
+        if(!authenticated){
+            return res.status(401).send('Password is incorrect')
+        }
+
+        //Set user on session, send it client-side
+        delete foundUser[0].password;
+        req.session.user = foundUser[0];
+        res.status(202).send(req.session.user);
+    },
+
     createPost: (req, res) => {
         const {title, image_url, content} = req.body,
-        const user_id = req.session.userid
-              db = req.app.get('db');
         
-        db.post.create_post(title, image_url, content, user_id)
-        .then(()=> { res.status(200).send({message: 'Post added'})})
+              db = req.app.get('db');
+        db.post.create_post(title, image_url, content, )
+        .then(()=> { res.status(200).send({message:'Post added'})})
         .catch(err => res.status(500).send(err));
     },
 
@@ -71,5 +94,11 @@ module.exports={
             console.log(err);
          })
     }
+    },
+    logout: (req, res) => {
+        //logout clears out the session of user data
+        req.session.destroy();
+        res.sendStatus(200);
     }
+
 }

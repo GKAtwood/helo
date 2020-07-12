@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+import {connect} from 'react-redux'
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -9,6 +11,45 @@ class Dashboard extends Component {
 			posts: [],
 			user_posts: false
 		};
+    }
+    componentWillMount() {
+		axios.get(`/api/posts?search=&user_posts=`).then((response) => {
+			this.setState({ posts: response.data });
+		});
+    }
+    handleChange(string) {
+		this.setState({ search: string });
+    }
+    filterPosts() {
+		if (this.state.user_posts) {
+			axios.get(`/api/posts?search=${this.state.search}&user_posts=${this.state.user_posts}`).then((response) => {
+				this.setState({ posts: response.data });
+			});
+		} else {
+			axios.get(`/api/posts?search=${this.state.search}&user_posts=`).then((response) => {
+				this.setState({ posts: response.data });
+			});
+		}
+    }
+    hideUserPosts() {
+		if (this.state.user_posts) {
+			this.setState({ user_posts: false });
+		} else {
+			this.setState({ user_posts: true });
+		}
+    }
+    resetSearch() {
+		if (this.state.user_posts) {
+			this.setState({ search: '' });
+			axios.get(`/api/posts?search=&user_posts=${this.props.id}`).then((response) => {
+				this.setState({ posts: response.data });
+			});
+		} else {
+			this.setState({ search: '' });
+			axios.get(`/api/posts?search=&user_posts=`).then((response) => {
+				this.setState({ posts: response.data });
+			});
+		}
 	}
 
 
@@ -60,4 +101,4 @@ class Dashboard extends Component {
 		);
 	}
 }
-export default Dashboard
+export default connect(null)(Dashboard);
