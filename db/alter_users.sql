@@ -1,2 +1,3 @@
 ALTER TABLE users
-ALTER COLUMN password text;
+ALTER COLUMN password 
+SET DATA TYPE text;
