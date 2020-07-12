@@ -69,7 +69,7 @@
 }
 .nav-bar{
   justify-content: space-between;
-  height: 100vh;
+  height: 110vh;
   padding: 20px;
   width: 8vw;
   background-image: linear-gradient(#E9ff70, #ffd670 40%, #ff9770 73%, #ff70a6)
@@ -96,12 +96,19 @@
 }
 
 .nav-profile-picture{
+
   background-color: white;
   border-radius: 100%;
   margin-bottom: 0
 }
+.auth{
+  height: 100vh;
+  width: 100vw;
+  background:linear-gradient(to left, #E9ff70, #ffd670 40%, #ff9770 73%, #ff70a6);
+}
 .auth-box{
-  color:white;
+  background:linear-gradient(to left, #E9ff70, #ffd670 40%, #ff9770 73%, #ff70a6);
+  color: white;
   border: transparent;
   box-shadow: rgba(71, 71, 71, 0.507) 0px 4px 4px 4px;
   padding: 50px 100px;
@@ -145,7 +152,7 @@
   width: 500px;
   margin: 10px 10px 10px 30px;
   height: 25px;
-  font-size: 18px
+  font-size: 18px;
 }
 .posts-box{
   background-color: white;
@@ -156,11 +163,11 @@
   box-shadow: rgba(71, 71, 71, 0.507) 0px 4px 4px 4px;
 }
 .checkbox{
-  margin-right: 30px 
+  margin-right: 30px;
 }
 Link:visited{
   color: black;
-  text-decoration: none
+  text-decoration: none;
 
 }
 .post-card{
@@ -190,10 +197,10 @@ Link:visited{
   width: 45%;
   height: auto;
   display: flex;
-  justify-content: flex-start
+  justify-content: flex-start;
 }
 .title{
-  color: #FF9770
+  color: #FF9770;
 }
 .form-card{
   display: flex;
@@ -210,7 +217,7 @@ Link:visited{
 h3{
   align-self: baseline;
   margin-left: 48px;
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 .form-input{
   width: 90%;
@@ -221,11 +228,11 @@ h3{
   margin: 20px 45px;
   align-self: flex-end;
   padding-left: 20px;
-  padding-right: 20px
+  padding-right: 20px;
 }
 a:visited,
 a:active,
 a:link{
   color: black;
-  text-decoration: none
+  text-decoration: none;
 }

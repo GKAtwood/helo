@@ -62,7 +62,7 @@ class Form extends Component{
                                 rows="10"
                             />
                             <button id="post-button" className="black-button" onClick={() => this.newPost()}>
-                                post
+                                Post
                             </button>
                         </div>
                     </div>
