@@ -28,7 +28,11 @@ app.post('/api/new-user', ctrl.createUser)
 app.post('/api/login', ctrl.loginUser)
 app.get('/api/posts', ctrl.getPosts)
 app.get('/api/post/:id', ctrl.getSinglePost)
-app.post('/api/newpost', ctrl.newPost)
+app.post('/api/newpost', ctrl.createPost)
+app.post('/api/auth/logout', ctrl.logout)
+app.get('/api/auth/me', ctrl.userInfo)
+
+
 
 
 

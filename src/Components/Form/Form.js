@@ -30,7 +30,7 @@ class Form extends Component{
 
     render(){
         const imageSource =
-			this.state.image_url == ''
+			this.state.image_url === ''
 				? 'https://zenit.org/wp-content/uploads/2018/05/no-image-icon.png'
 				: this.state.image_url;
                 return (
@@ -45,7 +45,7 @@ class Form extends Component{
                                 onChange={(e) => this.handleChange(e, 'title')}
                             />
                             <br />
-                            <img src={imageSource} alt="post-image" className="post-image" />
+                            <img src={imageSource} alt="POST" className="post-image" />
                             <h3>Image URL:</h3>
                             <input
                                 className="form-input"

@@ -95,6 +95,35 @@ module.exports={
          })
     }
     },
+
+    getSinglePost: (req, res, next)=>{
+        const dbInstance = req.app.get('db')
+        const {id} = req.params
+
+        dbInstance.get_single_post([id]).then(post=>{
+            res.status(200).send(post)
+        })
+        .catch((err) => {
+            res.status(500).send({ errorMessage: 'Something went wrong!' });
+            console.log(err);
+         })
+        
+    },
+
+
+    userInfo: (req, res, next)=>{
+        const dbInstance = req.app.get('db')
+        const user_id = req.session.userid
+
+        dbInstance.get_user_info([user_id])
+        .then(user=>{
+            res.status(200).send(user)
+        })
+        .catch((err) => {
+            res.status(500).send({ errorMessage: 'Something went wrong!' });
+            console.log(err);
+         })
+    },
     logout: (req, res) => {
         //logout clears out the session of user data
         req.session.destroy();
