@@ -20,5 +20,14 @@ module.exports={
         const newUser = await db.users.register_user({username, password: hash, profilePicture});
         req.session.user = newUser[0];
         res.status(201).send(req.session.user);
-    }
+    },
+
+    getPosts: (req, res) => {
+        const {id} = req.params,
+              db = req.app.get('db');
+
+        db.post.get_posts(id)
+        .then(posts => res.status(200).send(posts))
+        .catch(err => res.status(500).send(err));
+    },
 }
