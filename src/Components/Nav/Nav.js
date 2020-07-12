@@ -14,11 +14,11 @@ class Nav extends Component{
 
     render(){
         console.log(this.props)
-        // if(this.props.location.pathname == '/'){
+        // if(this.props.location.pathname !== '/'){
         //     return null
         // }else{
         return(
-            <div className='nav-bar'>
+             <div className='nav-bar'>
                 <div className='nav-bar-top'>
                 <img src={this.props.image} alt="Missing" className='nav-profile-picture'/>
             <p>{this.props.username}</p>
@@ -36,6 +36,8 @@ class Nav extends Component{
             )
         }
     }
+
+
     
 
 const mapStateToProps = reduxState => reduxState;

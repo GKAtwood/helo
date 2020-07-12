@@ -44,16 +44,16 @@ class Auth extends Component{
             <div className='Auth'>
             <div className='auth-box'>
             <img src="https://raw.githubusercontent.com/DevMountain/simulation-3/master/assets/helo_logo.png" alt="logo"/>
-                <h1>HELO</h1>
+            <h1>HELO</h1>
                 <div className='login'>
-                Username: <input type="text"/>
+                Username: <input type="text" value={this.state.username} onChange={e=>this.handleChange(e,"username")} />
                 </div>
                 <div className='login'>
-               Password: <input type="password"/>
+               Password: <input type="password" value= {this.state.password} onChange={e=>this.handleChange(e,"password")}/>
                 </div>
                 <div className='button-container'>
-                    <button className='black-button'>Login</button>
-                    <button className='black-button'>Register</button>
+                    <button className='black-button' onClick={()=>this.login()}>Login</button>
+                    <button className='black-button' onClick={()=> this.createUser()}>Register</button>
                 </div>
                 
             </div>
