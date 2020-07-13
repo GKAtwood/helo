@@ -7,9 +7,9 @@ module.exports={
               db = req.app.get('db');
 
         //Does a user with this email already exist?
-        const foundUser = await db.users.check_user({email});
+        const foundUser = await db.users.check_user({username});
         if(foundUser[0]){
-            return res.status(400).send('Email already in use')
+            return res.status(400).send('Username already in use')
         }
 
         //Hashing the users password
@@ -24,13 +24,13 @@ module.exports={
 
     loginUser: async(req, res) => {
         //What does this function need to run properly?
-        const {email, password} = req.body,
+        const {username, password} = req.body,
               db = req.app.get('db');
 
         //Checks if user is already in the database, based on email
-        const foundUser = await db.users.check_user({email});
+        const foundUser = await db.users.check_user({username});
         if(!foundUser[0]){
-            return res.status(400).send('Email not found');
+            return res.status(400).send('Username not found');
         }
 
         //Compare the passwords to make they match

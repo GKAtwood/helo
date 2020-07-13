@@ -12,6 +12,11 @@ class Auth extends Component{
         }
     }
 
+    handleChange(event, name) {
+		const value = event.target.value;
+		this.setState({ [name]: value });
+    }
+
     createUser(){
         const newUser={
             username: this.state.username,
@@ -24,19 +29,17 @@ class Auth extends Component{
         })
     }
 
-    login(){
-        const user = {
-            username: this.state.username,
-            password: this.state.password
-        }
-       
-        axios.post('/api/login', user).then(results=>{
-            console.log(results)
-            this.props.loginUser(results.data[0]);
-            this.props.history.push('./dashboard')
+    handleLogin = () => {
+        const {username, password} = this.state;
+        axios.post('/api/login', {username, password})
+        .then(res => {
+            //set user somewhere that the app can use it (redux)
+            this.props.getUser(res.data);
+            //route the user away from landing, to dash
+            this.props.history.push('/dash');
         })
+        .catch(err => console.log(err));
     }
-
 
     render(){
         
@@ -52,7 +55,7 @@ class Auth extends Component{
                Password: <input type="password" value= {this.state.password} onChange={e=>this.handleChange(e,"password")}/>
                 </div>
                 <div className='button-container'>
-                    <button className='black-button' onClick={()=>this.login()}>Login</button>
+                    <button className='black-button' onClick={()=>this.handleLogin()}>Login</button>
                     <button className='black-button' onClick={()=> this.createUser()}>Register</button>
                 </div>
                 
@@ -61,5 +64,6 @@ class Auth extends Component{
         )
     }
 }
+const mapStateToProps = reduxState => reduxState;
 
 export default connect(null, {loginUser, registerUser})(Auth);
