@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {loginUser, registerUser} from '../../ducks/reducer';
+import {loginUser, registerUser, getUser} from '../../ducks/reducer';
 
 class Auth extends Component{
     constructor(props){
@@ -36,7 +36,7 @@ class Auth extends Component{
             //set user somewhere that the app can use it (redux)
             this.props.getUser(res.data);
             //route the user away from landing, to dash
-            this.props.history.push('/dash');
+            this.props.history.push('/dashboard');
         })
         .catch(err => console.log(err));
     }
@@ -66,4 +66,5 @@ class Auth extends Component{
 }
 const mapStateToProps = reduxState => reduxState;
 
-export default connect(null, {loginUser, registerUser})(Auth);
+
+export default connect(null, {loginUser, registerUser, getUser})(Auth);
