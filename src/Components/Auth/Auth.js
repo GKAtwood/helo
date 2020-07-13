@@ -22,7 +22,7 @@ class Auth extends Component{
         const newUser={
             username: this.state.username,
             password: this.state.password,
-            image: `https://robohash.org/${this.state.username}`
+            image: `https://robohash.org/`
         }
         this.props.registerUser(newUser)
         axios.post('/api/new-user', newUser).then(()=>{

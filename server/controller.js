@@ -114,9 +114,9 @@ module.exports= {
         const db = req.app.get('db')
         const user_id = req.session.userid
 
-        db.users.get_user_info([user_id])
+        db.users.get_user_info([id])
         .then(user=>{
-            res.status(200).send(user)
+            res.status(200).send(users)
         })
         .catch((err) => {
             res.status(500).send({ errorMessage: 'Something went wrong!' });

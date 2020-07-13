@@ -12,7 +12,7 @@ class Dashboard extends Component {
 			user_posts: false
 		};
     }
-    componentWillMount() {
+    componentDidMount() {
 		axios.get(`/api/posts?search=&user_posts=`).then((response) => {
 			this.setState({ posts: response.data });
 		});
