@@ -48,7 +48,7 @@ module.exports= {
         const {id, postImage} = req.body,
               db = req.app.get('db');
         
-        db.post.create_post(id, postImage)
+        db.posts.create_post(id, postImage)
         .then(() => res.sendStatus(200))
         .catch(err => res.status(500).send(err));
     },
@@ -60,7 +60,7 @@ module.exports= {
         const id = req.session.userid
         
         if(search && user_posts){
-        db.get_posts_filtered([newSearch, id])
+        db.posts.get_posts_filtered([newSearch, id])
         .then(posts=> res.status(200).send(posts))
         .catch((err) => {
             res.status(500).send({ errorMessage: 'Something went wrong!' });
@@ -69,7 +69,7 @@ module.exports= {
 
 
     }else if(search){
-        db.get_posts_search([newSearch])
+        db.posts.get_posts_search([newSearch])
         .then(posts=> res.status(200).send(posts))
         .catch((err) => {
             res.status(500).send({ errorMessage: 'Something went wrong!' });
@@ -86,7 +86,7 @@ module.exports= {
          })
     }
     else{
-        db.get_posts([])
+        db.posts.get_posts([])
         .then(posts=> res.status(200).send(posts))
         .catch((err) => {
             res.status(500).send({ errorMessage: 'Something went wrong!' });
@@ -99,7 +99,7 @@ module.exports= {
         const db = req.app.get('db')
         const {id} = req.params
 
-        db.get_single_post([id]).then(post=>{
+        db.posts.get_single_post([id]).then(post=>{
             res.status(200).send(post)
         })
         .catch((err) => {
@@ -114,7 +114,7 @@ module.exports= {
         const db = req.app.get('db')
         const user_id = req.session.userid
 
-        db.get_user_info([user_id])
+        db.users.get_user_info([user_id])
         .then(user=>{
             res.status(200).send(user)
         })

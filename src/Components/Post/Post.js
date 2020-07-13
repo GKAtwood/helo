@@ -9,7 +9,7 @@ class Post extends Component {
 			post: {}
 		};
 	}
-	componentWillMount() {
+	componentDidMount() {
 		axios.get(`/api/post/${this.props.match.params.postid}`).then((response) => {
 			this.setState({ post: response.data[0] });
 		});
