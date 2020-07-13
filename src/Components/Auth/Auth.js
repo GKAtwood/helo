@@ -9,6 +9,7 @@ class Auth extends Component{
         this.state={
             username: '',
             password: ''
+            
         }
     }
 
@@ -29,7 +30,7 @@ class Auth extends Component{
         })
     }
 
-    handleLogin = () => {
+    login= () => {
         const {username, password} = this.state;
         axios.post('/api/login', {username, password})
         .then(res => {
@@ -40,10 +41,10 @@ class Auth extends Component{
         })
         .catch(err => console.log(err));
     }
-
     render(){
-        
+        // console.log(this.props)
         return(
+            
             <div className='Auth'>
             <div className='auth-box'>
             <img src="https://raw.githubusercontent.com/DevMountain/simulation-3/master/assets/helo_logo.png" alt="logo"/>
@@ -55,7 +56,7 @@ class Auth extends Component{
                Password: <input type="password" value= {this.state.password} onChange={e=>this.handleChange(e,"password")}/>
                 </div>
                 <div className='button-container'>
-                    <button className='black-button' onClick={()=>this.handleLogin()}>Login</button>
+                    <button className='black-button' onClick={()=>this.login()}>Login</button>
                     <button className='black-button' onClick={()=> this.createUser()}>Register</button>
                 </div>
                 
@@ -64,7 +65,7 @@ class Auth extends Component{
         )
     }
 }
-const mapStateToProps = reduxState => reduxState;
 
 
-export default connect(null, {loginUser, registerUser, getUser})(Auth);
+
+export default connect(state=>state, {loginUser, registerUser, getUser} )(Auth)

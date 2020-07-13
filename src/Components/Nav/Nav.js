@@ -12,13 +12,13 @@ class Nav extends Component{
             user: {}
         }
     }
-    // componentDidMount(){
-    //     if(this.props.location.pathname != '/'){
-    //     axios.get('/api/auth/me').then(response=>{
-    //         this.props.getUser(response.data[0])
-    //     })
-    //     }
-    // }
+    componentDidMount(){
+        if(this.props.location.pathname !== '/'){
+        axios.get('/api/auth/me').then(response=>{
+            this.props.getUser(response.data[0])
+        })
+        }
+    }
 
     logOut(){
         axios.post('/api/auth/logout').then(()=>{
@@ -31,9 +31,9 @@ class Nav extends Component{
 
     render(){
         console.log(this.props)
-        // if(this.props.location.pathname === '/'){
-        //     return null
-        // }else{
+        if(this.props.location.pathname === '/'){
+            return null
+        }else{
         return(
              <div className='nav-bar'>
                 <div className='nav-bar-top'>
@@ -53,6 +53,7 @@ class Nav extends Component{
             )
         }
     }
+}
 
 
 

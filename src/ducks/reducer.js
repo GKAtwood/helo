@@ -1,7 +1,7 @@
 const initialState = {
-    username: '',
-    password: '',
-    image: '',
+    username: null,
+    password: null,
+    image: null,
    
 }
 

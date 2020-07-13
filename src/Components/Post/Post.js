@@ -27,13 +27,13 @@ class Post extends Component {
 							<p>by {this.state.post.username}</p>
 							<img
 								src={this.state.post.profile_picture}
-								alt="profile-image"
+								alt="Profile"
 								className="profile-thumbnail"
 							/>
 						</div>
 					</div>
 					<div className="post-content">
-						<img src={this.state.post.image_url} alt="post-image" className="post-image" />
+						<img src={this.state.post.image_url} alt="post" className="post-image" />
 						<p className="content-container">{this.state.post.content}</p>
 					</div>
 				</div>

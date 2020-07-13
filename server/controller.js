@@ -1,25 +1,24 @@
 const bcrypt = require('bcryptjs');
 
-module.exports={
-    createUser: async(req, res) => {
-        //What does the function need to run properly?
-        const {username, password, profilePicture} = req.body,
-              db = req.app.get('db');
 
-        //Does a user with this email already exist?
-        const foundUser = await db.users.check_user({username});
+
+module.exports= {
+    createUser: async(req, res) => {
+        console.log(req.body)
+        const {username,password, profilePicture} = req.body,
+              db = req.app.get('db')
+
+       const foundUser = await db.users.check_user({username});
         if(foundUser[0]){
             return res.status(400).send('Username already in use')
         }
-
-        //Hashing the users password
         let salt = bcrypt.genSaltSync(10),
             hash = bcrypt.hashSync(password, salt);
 
-        //Registering the user, and sending the session client-side
-        const newUser = await db.users.register_user({username, password: hash, profilePicture});
-        req.session.user = newUser[0];
-        res.status(201).send(req.session.user);
+    
+            const newUser = await db.users.register_user({username, password: hash, profilePicture});
+            req.session.users = newUser[0];
+            res.status(201).send(req.session.users);
     },
 
     loginUser: async(req, res) => {
@@ -41,27 +40,27 @@ module.exports={
 
         //Set user on session, send it client-side
         delete foundUser[0].password;
-        req.session.user = foundUser[0];
-        res.status(202).send(req.session.user);
+        req.session.users = foundUser[0];
+        res.status(202).send(req.session.users);
     },
-
+ 
     createPost: (req, res) => {
-        const {title, image_url, content} = req.body,
-        
+        const {id, postImage} = req.body,
               db = req.app.get('db');
-        db.post.create_post(title, image_url, content, )
-        .then(()=> { res.status(200).send({message:'Post added'})})
+        
+        db.post.create_post(id, postImage)
+        .then(() => res.sendStatus(200))
         .catch(err => res.status(500).send(err));
     },
 
     getPosts: (req, res) => {
-        const dbInstance = req.app.get('db')
+        const db = req.app.get('db')
         const {search, user_posts} = req.query
         const newSearch = '%'+search+'%'
         const id = req.session.userid
         
         if(search && user_posts){
-        dbInstance.get_posts_filtered([newSearch, id])
+        db.get_posts_filtered([newSearch, id])
         .then(posts=> res.status(200).send(posts))
         .catch((err) => {
             res.status(500).send({ errorMessage: 'Something went wrong!' });
@@ -70,7 +69,7 @@ module.exports={
 
 
     }else if(search){
-        dbInstance.get_posts_search([newSearch])
+        db.get_posts_search([newSearch])
         .then(posts=> res.status(200).send(posts))
         .catch((err) => {
             res.status(500).send({ errorMessage: 'Something went wrong!' });
@@ -79,7 +78,7 @@ module.exports={
 
     }else if(user_posts){
         console.log(user_posts)
-        dbInstance.get_posts_user([id])
+        db.get_posts_user([id])
         .then(posts=> res.status(200).send(posts))
         .catch((err) => {
             res.status(500).send({ errorMessage: 'Something went wrong!' });
@@ -87,7 +86,7 @@ module.exports={
          })
     }
     else{
-        dbInstance.get_posts([])
+        db.get_posts([])
         .then(posts=> res.status(200).send(posts))
         .catch((err) => {
             res.status(500).send({ errorMessage: 'Something went wrong!' });
@@ -97,10 +96,10 @@ module.exports={
     },
 
     getSinglePost: (req, res, next)=>{
-        const dbInstance = req.app.get('db')
+        const db = req.app.get('db')
         const {id} = req.params
 
-        dbInstance.get_single_post([id]).then(post=>{
+        db.get_single_post([id]).then(post=>{
             res.status(200).send(post)
         })
         .catch((err) => {
@@ -112,10 +111,10 @@ module.exports={
 
 
     userInfo: (req, res, next)=>{
-        const dbInstance = req.app.get('db')
+        const db = req.app.get('db')
         const user_id = req.session.userid
 
-        dbInstance.get_user_info([user_id])
+        db.get_user_info([user_id])
         .then(user=>{
             res.status(200).send(user)
         })

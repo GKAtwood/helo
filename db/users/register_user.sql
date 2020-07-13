@@ -7,4 +7,4 @@ insert into users (
     ${password},
     ${profilePicture}
 )
-returning user_id, username, profile_picture;
+returning id, username, profile_picture;
